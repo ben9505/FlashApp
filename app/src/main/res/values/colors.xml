@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="key">#ffcc19</color>
+    <color name="text_defaule">#000</color>
+    <color name="text_active">#f1b002</color>
+    <color name="color">#636363</color>
+    <color name="bg_setting">#6e000000</color>
+    <color name="setting_popup">#1e1e1e</color>
+    <color name="button_disable">#7b7a7a</color>
+
+
+    <!--Color Picker-->
+    <color name="ingr_red1">#FFCC0000</color>
+    <color name="ingr_orange1">#FFED5F21</color>
+    <color name="ingr_yellow1">#FFFAE300</color>
+    <color name="ingr_green1">#FF5B9C0A</color>
+    <color name="ingr_blue1">#FF0A0D9C</color>
+    <color name="ingr_violet1">#FF990A9C</color>
+    <color name="ingr_red2">#FFFFCCCC</color>
+    <color name="ingr_orange2">#FFFFEACC</color>
+    <color name="ingr_yellow2">#FFFFFECC</color>
+    <color name="ingr_green2">#FFC7F5C4</color>
+    <color name="ingr_blue2">#FFC4DAF4</color>
+    <color name="ingr_violet2">#FFE1C4F4</color>
+
+</resources>

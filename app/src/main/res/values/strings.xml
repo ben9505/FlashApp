@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Flashlight</string>
+    <string name="TOP_FLASHLIGHT">FLASH</string>
+    <string name="TOP_SCREEN">SCREEN</string>
+
+    <string name="brightness">BRIGHTNESS</string>
+    <string name="speed">speed</string>
+    <string name="textsize">text size</string>
+    <string name="setting_default">DEFAULT(Launch app)</string>
+    <string name="setting_screen_keep">On screen, keep</string>
+    <string name="setting_push_alarm">Push alarm</string>
+
+
+    <!--Button-->
+    <string name="btn_save">SAVE</string>
+    <string name="btn_view">VIEW</string>
+    <string name="btn_cancel">CANCEL</string>
+
+
+
+
+    <string name="error_camera">Unable to open camera</string>
+    <string name="error_led">Unable to turn on LED</string>
+
+
+
+
+
+</resources>

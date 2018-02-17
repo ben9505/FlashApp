@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="30dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp">
+                <com.flashlight.webis.customview.TextViewBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/speed"
+                    android:textColor="@color/text_active"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="15sp"/>
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="7dp"
+                    android:maxHeight="7dp"
+                    android:id="@+id/seekBar_speed"
+                    android:layout_marginTop="10dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_gravity="center_horizontal|top">
+
+                        <com.flashlight.webis.customview.TextViewBold
+                            android:id="@+id/speedStart"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:textColor="@color/text_active"
+                            android:layout_weight="1"
+                            android:paddingRight="50dp"
+                            android:text="1"/>
+
+                        <com.flashlight.webis.customview.TextViewBold
+                            android:id="@+id/speedEnd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:textColor="@color/text_active"
+                            android:layout_weight="1"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:paddingLeft="50dp"
+                            android:text="10"/>
+                </LinearLayout>
+                <com.flashlight.webis.customview.TextViewBold
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/textsize"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/text_active"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="15sp"/>
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="7dp"
+                    android:maxHeight="7dp"
+                    android:id="@+id/seekBar_size"
+                    android:layout_marginTop="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginBottom="20dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_gravity="center_horizontal|top">
+
+                        <com.flashlight.webis.customview.TextViewBold
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:textColor="@color/text_active"
+                            android:layout_weight="1"
+                            android:paddingRight="50dp"
+                            android:text="1"/>
+
+                        <com.flashlight.webis.customview.TextViewBold
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10sp"
+                            android:textColor="@color/text_active"
+                            android:layout_weight="1"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:paddingLeft="50dp"
+                            android:text="10"/>
+                </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/frameEdittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:gravity="center"
+                            android:hint="BABOSARANG"
+                            android:isScrollContainer="false"
+                            android:singleLine="true"
+                            android:lines="1"
+                            android:layout_centerInParent="true"
+                            android:id="@+id/editText"
+                            android:textAlignment="center"
+                            android:background="@drawable/edittext_bottom_line"/>
+                </RelativeLayout>
+
+
+                <uz.shift.colorpicker.LineColorPicker
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    app:selectedColorIndex="3"
+                    app:colors="@array/ingr_color_arr"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    app:orientation="horizontal"/>
+
+
+
+
+                <Button
+                    android:id="@+id/btnView"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="@string/btn_view"
+                    android:textColor="@color/text_active"
+                    android:background="@drawable/bg_btn"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+        </LinearLayout>
+</ScrollView>

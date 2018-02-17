@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:seekarc="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_centerInParent="true"
+android:gravity="center"
+android:orientation="vertical">
+<FrameLayout android:layout_width="1px" android:layout_height="1px" android:id="@+id/surfaceContain"/>
+
+
+    <LinearLayout
+        android:id="@+id/rl_frame_bright_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+        <com.flashlight.webis.customview.TextViewBold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/speed"
+            android:textColor="@color/text_active"
+            android:layout_gravity="center_horizontal"
+            android:textSize="15sp"/>
+        <RelativeLayout
+            android:id="@+id/containCentral"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal">
+            <LinearLayout
+                android:layout_marginTop="55dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:paddingLeft="75dp"
+                android:paddingRight="75dp"
+                android:layout_gravity="center_horizontal|top">
+
+                <com.flashlight.webis.customview.TextViewBold
+                    android:id="@+id/speedStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_active"
+                    android:layout_weight="1"
+                    android:paddingRight="50dp"
+                    android:text="1"/>
+
+                <com.flashlight.webis.customview.TextViewBold
+                    android:id="@+id/speedEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_active"
+                    android:layout_weight="1"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:paddingLeft="50dp"
+                    android:text="10"/>
+            </LinearLayout>
+            <ImageButton
+                android:id="@+id/btnFlash"
+                android:onClick="actionClick"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginTop="70dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/btn_flash_on_off"
+                android:scaleType="center"
+                android:layout_centerInParent="true"/>
+            <FrameLayout
+                android:id="@+id/containSpeekSeekArc"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:clipChildren="true">
+                <com.triggertrap.seekarc.SeekArc
+                    android:id="@+id/seekBar_speed"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_centerHorizontal="true"
+                    seekarc:rotation="285"
+                    android:padding="10dp"
+                    seekarc:startAngle="30"
+                    seekarc:sweepAngle="90"
+                    seekarc:touchInside="true"
+                    seekarc:max="9"
+                    seekarc:arcWidth="2dp"
+                    seekarc:progressColor="@color/text_active"
+                    seekarc:arcColor="@color/text_active"
+                    seekarc:thumb="@drawable/circle"/>
+            </FrameLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="ingr_color_arr">
+        <item>@color/ingr_red1</item>
+        <item>@color/ingr_orange1</item>
+        <item>@color/ingr_yellow1</item>
+        <item>@color/ingr_green1</item>
+        <item>@color/ingr_blue1</item>
+        <item>@color/ingr_violet1</item>
+        <item>@color/ingr_red2</item>
+        <item>@color/ingr_orange2</item>
+        <item>@color/ingr_yellow2</item>
+        <item>@color/ingr_green2</item>
+        <item>@color/ingr_blue2</item>
+        <item>@color/ingr_violet2</item>
+    </array>
+</resources>

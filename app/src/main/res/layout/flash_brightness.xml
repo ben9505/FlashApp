@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_frame_bright_normal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.flashlight.webis.customview.TextViewBold
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/brightness"
+        android:textColor="@color/text_active"
+        android:layout_gravity="center_horizontal"
+        android:textSize="15sp"/>
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="7dp"
+        android:maxHeight="7dp"
+        android:id="@+id/seekBar_bright" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <com.flashlight.webis.customview.TextViewBold
+            android:id="@+id/bright_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textColor="@color/text_active"
+            android:layout_weight="1"
+            android:text="0"/>
+
+        <com.flashlight.webis.customview.TextViewBold
+            android:id="@+id/bright_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textColor="@color/text_active"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:text="10"/>
+
+    </LinearLayout>
+</LinearLayout>

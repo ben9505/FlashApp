@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="frame">20dp</dimen>
+    <dimen name="btn_title">18dp</dimen>
+    <dimen name="setting_width">320dp</dimen>
+</resources>

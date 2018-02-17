@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "526949017420",
+    "project_id": "firebase-baboflash"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526949017420:android:beb1749daff7bd36",
+        "android_client_info": {
+          "package_name": "com.flashlight.webis"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-p4-SeMY-sdhapJbAgL1a80g8j7BY1H4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
