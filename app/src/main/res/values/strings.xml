@@ -21,9 +21,9 @@
 
     <string name="error_camera">Unable to open camera</string>
     <string name="error_led">Unable to turn on LED</string>
-
-
-
+    <string name="flash_error">Sorry, your device doesn\'t support flash light!</string>
+    <string name="error">Error</string>
+    <string name="ok">OK</string>
 
 
 </resources>

@@ -44,26 +44,32 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.kyleduo.switchbutton.SwitchButton;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity implements Deleget {
 
 
     public Helper cHelper;
     public Fonts cFonts;
 
-    //flag variable that check process complete
-    private boolean isFlag;
     // UI
-    Button btnChooseType;
-    Button btnOpenFlashPage, btnOpenScreenPage;
-    LinearLayout lnHeader;
-    RelativeLayout rlViewPreview;
+    @BindView(R.id.btnChooseType) Button btnChooseType;
+    @BindView(R.id.btnOpenFlashPage) Button btnOpenFlashPage;
+    @BindView(R.id.btnOpenScreenPage) Button btnOpenScreenPage;
+    @BindView(R.id.lnHeader) LinearLayout lnHeader;
+    @BindView(R.id.rlViewPreview) RelativeLayout rlViewPreview;
     // UI SETTING
-    RelativeLayout rlSetting_Popup;
-    SwitchButton swDefault, swScreenKeep, swPushAlarm;
-    ImageButton btnSetting;
-    boolean hasFlash;
-    FrameLayout contentView, preview;
+    @BindView(R.id.rlSetting_Popup) RelativeLayout rlSetting_Popup;
+    @BindView(R.id.swDefault) SwitchButton swDefault;
+    @BindView(R.id.swScreenKeep) SwitchButton swScreenKeep;
+    @BindView(R.id.swPushAlarm) SwitchButton swPushAlarm;
+    @BindView(R.id.btnSetting) ImageButton btnSetting;
+    @BindView(R.id.contentView) FrameLayout contentView;
+    @BindView(R.id.surfaceContain) FrameLayout preview;
 
+    boolean hasFlash;
     boolean isFristCreateView;
     //Flash
     private boolean mIsFlashOn;
@@ -72,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements Deleget {
     Camera.Parameters params;
     boolean isThreadRun;
     int delay = Variable.FLASH_ALWAYS_ON;
-
+    SharedPreferences pre;
 
     //Creating a broadcast receiver for gcm registration
     private BroadcastReceiver mRegistrationBroadcastReceiver;
@@ -85,10 +91,9 @@ public class MainActivity extends AppCompatActivity implements Deleget {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         cHelper = Helper.getInstance(getApplicationContext());
         cFonts = Fonts.getInstance(getApplicationContext());
-
-        initReference();
         hasFlash = getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
 
     }
@@ -96,14 +101,13 @@ public class MainActivity extends AppCompatActivity implements Deleget {
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences pre = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        initFunction();
+        pre = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (!hasFlash) {
 
             AlertDialog alert = new AlertDialog.Builder(MainActivity.this).create();
-            alert.setTitle("Error");
-            alert.setMessage("Sorry, your device doesn't support flash light!");
-            alert.setButton("OK", new DialogInterface.OnClickListener() {
+            alert.setTitle(getString(R.string.error));
+            alert.setMessage(getString(R.string.flash_error));
+            alert.setButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
@@ -111,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements Deleget {
             });
             alert.show();
         } else {
-            Fragment SlideFragment = getFragmentManager().findFragmentByTag(Variable.FRAGMENT_TEXTSLIDE_TAG);
+            Fragment SlideFragment = getFragmentManager().findFragmentById(R.id.contentView);
             if (!(SlideFragment instanceof TextSlide)) {
                 initFragmentFlash(pre.getBoolean(Variable.DEFAULT_STATE, true));
             }
@@ -121,12 +125,16 @@ public class MainActivity extends AppCompatActivity implements Deleget {
     }
 
     public void initFragmentFlash(boolean isOpen) {
+        btnChooseType.setText(R.string.TOP_FLASHLIGHT);
+        lnHeader.setBackgroundDrawable(getResources().getDrawable(R.mipmap.bg_header_active_flash));
         FragmentTransaction transaction = getFragmentManager().beginTransaction()
                 .replace(R.id.contentView, Flash.newInstance(isOpen), Variable.FRAGMENT_FLASH_TAG);
         transaction.commit();
     }
 
     public void initFragmentScreen() {
+        btnChooseType.setText(R.string.TOP_SCREEN);
+        lnHeader.setBackgroundDrawable(getResources().getDrawable(R.mipmap.bg_header_active_flash));
         isThreadRun = false;
         if (FlashLightWidget.lightOn) {
             OpenWidgetApp(false);
@@ -137,6 +145,8 @@ public class MainActivity extends AppCompatActivity implements Deleget {
     }
 
     public void initFragmenTextSlide() {
+        lnHeader.setBackgroundDrawable(getResources().getDrawable(R.mipmap.bg_header_active_textslide));
+        btnChooseType.setText(R.string.TOP_SCREEN);
         isThreadRun = false;
         if (FlashLightWidget.lightOn) {
             OpenWidgetApp(false);
@@ -147,32 +157,7 @@ public class MainActivity extends AppCompatActivity implements Deleget {
         transaction.commit();
     }
 
-    public void initReference() {
-
-        btnChooseType = (Button) findViewById(R.id.btnChooseType);
-        btnChooseType.setTypeface(cFonts.get_RO_BOLD());
-        btnOpenFlashPage = (Button) findViewById(R.id.btnOpenFlashPage);
-        btnOpenScreenPage = (Button) findViewById(R.id.btnOpenScreenPage);
-        lnHeader = (LinearLayout) findViewById(R.id.lnHeader);
-        rlSetting_Popup = (RelativeLayout) findViewById(R.id.rlSetting_Popup);
-        swDefault = (SwitchButton) findViewById(R.id.swDefault);
-        swPushAlarm = (SwitchButton) findViewById(R.id.swPushAlarm);
-        swScreenKeep = (SwitchButton) findViewById(R.id.swScreenKeep);
-        btnSetting = (ImageButton) findViewById(R.id.btnSetting);
-        rlViewPreview = (RelativeLayout) findViewById(R.id.rlViewPreview);
-        contentView = (FrameLayout) findViewById(R.id.contentView);
-        preview = (FrameLayout) findViewById(R.id.surfaceContain);
-    }
-
-    public void initFunction() {
-        // Flash is choose, So it will be enable false
-        getValueSetting();
-    }
-
-
     public void getValueSetting() {
-        Log.i(Variable.TAG, "getValueSetting");
-        SharedPreferences pre = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         swPushAlarm.setChecked(pre.getBoolean(Variable.PUSH_ALARM, true));
         swScreenKeep.setChecked(pre.getBoolean(Variable.SCREEN_KEEP, false));
         swDefault.setChecked(pre.getBoolean(Variable.DEFAULT_STATE, true));
@@ -180,145 +165,53 @@ public class MainActivity extends AppCompatActivity implements Deleget {
 
     //call action by XML layout
     public void activeSaveSetting(View view) {
+        updateSetting();
+        showDialogSaveSetting();
+    }
 
-        if (isFlag) {
-            return;
-        }
-        isFlag = true;
-        Log.i(Variable.TAG, "activeSaveSetting");
-        view.setEnabled(false);
-        SharedPreferences pre = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    private void updateSetting() {
         SharedPreferences.Editor editor = pre.edit();
         editor.putBoolean(Variable.DEFAULT_STATE, swDefault.isChecked());
         editor.putBoolean(Variable.PUSH_ALARM, swPushAlarm.isChecked());
         editor.putBoolean(Variable.SCREEN_KEEP, swScreenKeep.isChecked());
         editor.commit();
-        view.setEnabled(true);
-        showDialogSaveSetting();
-        isFlag = false;
     }
 
-    public void activeCancelSetting(View view) {
-        openOrClosePopupSetting();
-    }
-
-    public void activeOpenSettingController(View view) {
-        getValueSetting();
-        openOrClosePopupSetting();
-        SharedPreferences pre = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (pre.getBoolean(Variable.DEFAULT_STATE, true)) {
-            Log.i(Variable.TAG, "Return True");
-        } else {
-            Log.i(Variable.TAG, "Return Flase");
+    @OnClick({R.id.btnChooseType,R.id.btnOpenFlashPage,R.id.btnOpenScreenPage,R.id.btnSetting})
+    public void onClick(View view) {
+        if (cHelper.clickTimeDelay()) {
+            return;
+        }
+        final int id = view.getId();
+        switch (id) {
+            case R.id.btnChooseType:
+            case R.id.btnOpenFlashPage:
+                changeStatusApp();
+                break;
+            case R.id.btnOpenScreenPage:
+                initFragmenTextSlide();
+                break;
+            case R.id.btnSetting:
+            case R.id.rlViewPreview:
+                getValueSetting();
+                openOrClosePopupSetting();
+                break;
         }
     }
 
     public void openOrClosePopupSetting() {
-        if (isFlag) {
-            return;
-        }
-        isFlag = true;
-
         rlSetting_Popup.setVisibility(btnSetting.isSelected() ? View.GONE : View.VISIBLE);
         btnSetting.setSelected(btnSetting.isSelected() ? false : true);
-        isFlag = false;
     }
 
-    public void actionChooseTypeApp(View view) {
-        if (isFlag) {
-            return;
-        }
-        isFlag = true;
-
-
-        Button btn = (Button) view;
-        String oneOfTwoStatus = getResources().getString(R.string.TOP_FLASHLIGHT);
-        boolean isFlash = btn.getText().toString().equalsIgnoreCase(oneOfTwoStatus);
-        btn.setText(isFlash ? R.string.TOP_SCREEN : R.string.TOP_FLASHLIGHT);
-        lnHeader.setBackgroundDrawable(getResources().getDrawable(R.mipmap.bg_header_active_flash));
-        if (isFlash) {
+    public void changeStatusApp() {
+        Fragment fragment = getFragmentManager().findFragmentById(R.id.contentView);
+        if (fragment instanceof Flash) {
             initFragmentScreen();
         } else {
             initFragmentFlash(false);
         }
-        // End function
-
-        isFlag = false;
     }
-
-    public void actionHeaderActiveTextSlide(View view) {
-        if (isFlag) {
-            return;
-        }
-        isFlag = true;
-
-        lnHeader.setBackgroundDrawable(getResources().getDrawable(R.mipmap.bg_header_active_textslide));
-        btnChooseType.setText(R.string.TOP_SCREEN);
-        initFragmenTextSlide();
-        isFlag = false;
-    }
-
-    public void actionHeaderActiveFlash(View view) {
-        if (isFlag) {
-            return;
-        }
-        isFlag = true;
-        lnHeader.setBackgroundDrawable(getResources().getDrawable(R.mipmap.bg_header_active_flash));
-        String oneOfTwoStatus = getResources().getString(R.string.TOP_FLASHLIGHT);
-        boolean isFlash = btnChooseType.getText().toString().equalsIgnoreCase(oneOfTwoStatus);
-        if (isFlash) {
-            initFragmentFlash(false);
-        } else {
-            initFragmentScreen();
-        }
-        isFlag = false;
-    }
-
-    public void actionGoToBabosarangApp(View view) {
-
-        if (!isNetworkAvailable(getApplicationContext())) {
-            // code here
-            Toast.makeText(getApplicationContext(), "Not Internet Connection!!", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        JsonObject json = new JsonObject();
-        json.addProperty("uid", "com.eproject.vn.flashligh");
-
-        Log.i(Variable.TAG, json.toString());
-
-        Ion.with(getApplicationContext())
-                .load("http://www.babosarang.co.kr/app_api/app_banner.php")
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        // do stuff with the result or error
-                        if (result != null) {
-                            Log.i(Variable.TAG, result.toString());
-                            JsonArray jsonArray = result.getAsJsonArray("date");
-                            JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
-                            String bannerPath = jsonObject.get("banner_path").getAsString();
-                            String link = "http://m.babosarang.co.kr" + jsonObject.get("url_link").getAsString();
-                            Log.i(Variable.TAG, bannerPath);
-                            Log.i(Variable.TAG, link);
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                            startActivity(browserIntent);
-                        } else {
-                            Log.i(Variable.TAG, e.toString());
-                        }
-
-                    }
-                });
-
-
-    }
-
-    public void actionClosePreview(View view) {
-        rlViewPreview.setVisibility(View.GONE);
-    }
-
 
     Handler handler = new Handler();
 
@@ -342,8 +235,6 @@ public class MainActivity extends AppCompatActivity implements Deleget {
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i(Variable.TAG, "onStop");
-        SharedPreferences pre = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (!pre.getBoolean(Variable.SCREEN_KEEP, false)) {
             if (FlashLightWidget.lightOn) {
                 OpenWidgetApp(false);
@@ -379,12 +270,6 @@ public class MainActivity extends AppCompatActivity implements Deleget {
         }
         System.gc();
     }
-
-    public boolean isNetworkAvailable(final Context context) {
-        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
-
 
     public void showDialogSaveSetting() {
         AlertDialog alert = new AlertDialog.Builder(MainActivity.this).create();
@@ -423,7 +308,6 @@ public class MainActivity extends AppCompatActivity implements Deleget {
                 initCamera();
                 break;
             case Variable.FLASH_ON:
-                Log.i(Variable.TAG, "Repond FLASH_ON");
                 isThreadRun = false;
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -438,7 +322,6 @@ public class MainActivity extends AppCompatActivity implements Deleget {
 
                 break;
             case Variable.FLASH_OFF:
-                Log.i(Variable.TAG, "Repond FLASH_OFF");
                 isThreadRun = false;
                 break;
             default:
@@ -450,14 +333,10 @@ public class MainActivity extends AppCompatActivity implements Deleget {
     public void initCamera() {
         mCamera = getCameraInstance();
         mPreview = new CameraPreview(getApplicationContext(), mCamera);
-//        FrameLayout preview = (FrameLayout) findViewById(R.id.surfaceContain);
-//        preview.addView(mPreview);
     }
 
     public void setDelay(int pDelay) {
         delay = pDelay;
-        // error if clear it
-        Log.i(Variable.TAG, "Delay in " + String.valueOf(delay));
     }
 
     public Camera getCameraInstance() {
@@ -524,6 +403,7 @@ public class MainActivity extends AppCompatActivity implements Deleget {
     public void setIsFirstStart(boolean isFirst){
         isFristCreateView = isFirst;
     }
+
     public boolean isFirstCreate(){
         return isFristCreateView;
     }
@@ -544,8 +424,6 @@ public class MainActivity extends AppCompatActivity implements Deleget {
         intent.setAction(isFlash ? FlashlightIntentService.ACTION_TURN_ON : FlashlightIntentService.ACTION_TURN_OFF);
         startService(intent);
     }
-
-
 
     @Override
     public void onStart(){

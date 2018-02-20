@@ -15,21 +15,22 @@ public class Helper {
         this.context = context;
         getScreenDevice();
     }
-    public static Helper getInstance(Context context) {
+    public synchronized static Helper getInstance(Context context) {
         if(instance == null) {
             instance = new Helper(context);
         }
         return instance;
     }
 
-    public float pxWidth = 0;
-    public float pxHeight = 0;
-    public float dpWidth = 0;
-    public float dpHeight = 0;
+    float pxWidth = 0;
+    float pxHeight = 0;
+    float dpWidth = 0;
+    float dpHeight = 0;
+    long lastClickTime = 0;
 
-    public boolean sound;
+    boolean sound;
 
-    public int colorNumber;
+    int colorNumber;
 
     public boolean isSound() {
         return sound;
@@ -82,11 +83,7 @@ public class Helper {
         return dp;
     }
 
-
     String text;
-    float textSize;
-    int textColor;
-
 
     public String getText() {
         return text;
@@ -94,22 +91,6 @@ public class Helper {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public float getTextSize() {
-        return textSize;
-    }
-
-    public void setTextSize(float textSize) {
-        this.textSize = textSize;
-    }
-
-    public int getTextColor() {
-        return textColor;
-    }
-
-    public void setTextColor(int textColor) {
-        this.textColor = textColor;
     }
 
     int delay = Variable.FLASH_ALWAYS_ON;
@@ -121,4 +102,17 @@ public class Helper {
     public void setDelay(int delay) {
         this.delay = delay;
     }
+
+    public boolean clickTimeDelay() {
+        return clickTimeDelay(1000);
+    }
+
+    public boolean clickTimeDelay(int delay) {
+        if (lastClickTime >= System.currentTimeMillis() - delay) {
+            return true;
+        }
+        lastClickTime = System.currentTimeMillis();
+        return false;
+    }
+
 }
